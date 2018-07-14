@@ -10,9 +10,9 @@ import com.omatcha.util.DButil;
 public class ExpressadressImpl implements ExpressadressDao{
 
 	@Override
-	public int insertExprssadress(Expressadress exprssadress) {
-		String sql = "insert into expressadress(Consignee,ephone,eprovince,ecity,ecountry,eadress) values(?,?,?,?,?,?)";
-		String str [] ={exprssadress.getConsignee(),exprssadress.getEphone(),exprssadress.getEprovince(),exprssadress.getEcity(),exprssadress.getEcountry(),exprssadress.getEadress()};
+	public int insertExprssadress(Expressadress exprssadress,Users user) {
+		String sql = "insert into expressadress(Consignee,ephone,eprovince,ecity,ecountry,eadress,uid) values(?,?,?,?,?,?,?)";
+		String str [] ={exprssadress.getConsignee(),exprssadress.getEphone(),exprssadress.getEprovince(),exprssadress.getEcity(),exprssadress.getEcountry(),exprssadress.getEadress(),""+user.getUid()};
 		return DButil.update(sql, str);
 	}
 

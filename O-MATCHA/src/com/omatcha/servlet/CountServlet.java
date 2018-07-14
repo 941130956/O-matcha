@@ -47,8 +47,13 @@ public class CountServlet extends HttpServlet{
 		}else{
 			String sql1 = "SELECT cgid,cname,SUM(quantity) as quantity,weight,price,image,uid FROM cartgoods where uid=? GROUP BY cname";
 			List cartgoodslist = cs.queryGoods(sql1,Integer.parseInt(uid));
+			if(list!=null){
+				for (Object obj : list) {
+					count+=Integer.parseInt(((CartGoods) obj).getQuantity().toString());
+				}
+			}	
 			session.setAttribute("cartgoodslist", cartgoodslist);				
-			portrait = (String) session.getAttribute("portrait");	
+			portrait = (String) session.getAttribute("portrait");
 			if(portrait!=null){			
 				portraitPath="<%=path%>/page/tx/"+portrait;
 			}					

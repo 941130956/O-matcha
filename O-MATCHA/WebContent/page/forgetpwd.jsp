@@ -85,29 +85,29 @@ function send(){
 <script type="text/javascript">
 function checksend(){ 
 	var temp = false;
-	var inputcode = document.getElementById("inputcode").value; 
+	var inputcode = document.getElementById("msgcode").value; 
 		 $.ajax({
 			 url:'${pageContext.request.contextPath}/page/checksend',
 		  	  type:'post',
 		  	  data:{"msgcode":inputcode},
 		  	  dataType:'json',
+		  		async : false,
 		  	  success:function(data){
-		  		  if (inputcode.length>0) {
-		  		  	if (data.msg==1) {
-		  			document.getElementById("forgetcode").innerText="";
+		  		  if (inputcode.length>0&&data.msg==1) {
 		  			 temp = true;
-						}
+		  			return temp;
+		  			document.getElementById("msgtip").innerText="";
+		  		  }
 		  		  	else{
-		  			document.getElementById("forgetcode").innerText="验证码输入错误";
+		  			document.getElementById("msgtip").innerText="验证码输入错误";
 		  			 temp = false;
+		  			 
 		  		  		}
-		  		  }
-		  		  else{
-		  			document.getElementById("forgetcode").innerText="验证码不能为空";
-		  			temp = false;
-		  		  }
+		  		  
 		  	  }
 		 });
+		 return temp;
+		 
 	}
 </script>
 

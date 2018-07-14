@@ -22,9 +22,11 @@
 						$('#username').css({"display":"block"})
 						$('#usericon').css({"display":"none"})
 						$('#tx').src(data.portraitPath)
+					}else{
+						$('#username').css({"display":"block"})
+						$('#usericon').css({"display":"none"})
 					}
 				}
-				
 			}
 		});
 	}

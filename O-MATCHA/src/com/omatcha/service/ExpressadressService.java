@@ -7,7 +7,7 @@ import com.omatcha.pojo.Users;
 
 
 public interface ExpressadressService {
-	public boolean insertExpressadress(Expressadress expressadress);
+	public boolean insertExpressadress(Expressadress expressadress,Users user);
 	public List<Object> selectExprssadress(Users user);
 	
 	

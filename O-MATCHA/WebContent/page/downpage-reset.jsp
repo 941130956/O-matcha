@@ -29,7 +29,7 @@ function createCode(){
     }  
     return code; 
 }  
-function validate (){  
+function validate(){  
     var inputCode = document.getElementById("code1").value.toLowerCase();  
     if(inputCode.length <=0){  
     	document.getElementById('checkcode').innerHTML="验证码不能为空";
@@ -39,7 +39,8 @@ function validate (){
     	document.getElementById("checkcode").innerHTML="验证码输入有误";
         show();//刷新验证码  
         return false;  
-    }else{  
+    }else{ 
+    	document.getElementById("checkcode").innerHTML="";
         return true;  
     }  
 }  
@@ -72,28 +73,59 @@ function checksend(){
 		  	  type:'post',
 		  	  data:{"msgcode":inputcode},
 		  	  dataType:'json',
+		  		async : false,
 		  	  success:function(data){
-		  		  if (inputcode.length>0) {
-		  		  	if (data.msg==1) {
-		  			document.getElementById("msgtip").innerText="";
+		  		  if (inputcode.length>0&&data.msg==1) {
 		  			 temp = true;
-						}
+		  			return temp;
+		  			document.getElementById("msgtip").innerText="";
+		  		  }
 		  		  	else{
 		  			document.getElementById("msgtip").innerText="验证码输入错误";
 		  			 temp = false;
+		  			 
 		  		  		}
-		  		  }
-		  		  else{
-		  			document.getElementById("msgtip").innerText="验证码不能为空";
-		  			temp = false;
-		  		  }
+		  		  
 		  	  }
 		 });
+		 return temp;
+		 
 	}
 </script>
 <script type="text/javascript">
+function checkphone(){ 
+	var regx=/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+	var temp = false;
+	var inputPhone = document.getElementById("tel").value;  
+	   $.ajax({
+		  url:'${pageContext.request.contextPath}/CheckPhone',
+	  	  type:'post',
+	  	  data:{"inputPhone":inputPhone},
+	  	  dataType:'json',
+	  	  async : false,
+	  	  success:function(data){
+	  		  if ((inputPhone.length>0)&&regx.test(inputPhone)) {
+	  			if (data.msg==1) {
+	  			document.getElementById("checknum").innerText="非用户号码";
+	  			temp= false;
+						}
+	  		  else {
+	  			document.getElementById("checknum").innerText="";
+	  			temp= true;
+			}
+	  		  }
+	  		  else{
+	  			document.getElementById("checknum").innerText="号码不能为空/格式不正确";
+	  			temp= false;
+	  		  }
+	  	  }
+	  });
+	   return temp;
+}
+</script>
+<script type="text/javascript">
 function pass(){ 
-	if (checktel()&&validate ()&&checksend()) {
+	if (checkphone()&&validate()&&checksend()) {
 		location.href='../page/downpage-setpwd.jsp'
 	}
 }
@@ -103,9 +135,9 @@ function pass(){
 <div class="container">
 	<div class="row clearfix" id="ground">
 		<div class="col-md-12 column">
-			<input type="text" placeholder="请输入您的手机号" size="40" id="tel" onblur="checktel()" ></input>
+			<input type="text" placeholder="请输入您的手机号" size="40" id="tel" onblur="checkphone()" ></input>
 			<p class="text-warning"  id="checknum"></p>
-			<input type="text" placeholder="请输入验证码" id="code1"  name="vlcode" onblur="validate ()"></input> 
+			<input type="text" placeholder="请输入验证码" id="code1"  name="vlcode" onblur="validate()"></input> 
 			<div id="code">
 			<img src="" id="valiImg" style="width:128px;height:40px;cursor: pointer;"title="看不清？点击换一张" onclick="show()"/></div>
 			<p class="text-warning"  id="checkcode"name="wortip"></p>

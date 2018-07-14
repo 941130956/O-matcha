@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.omatcha.pojo.Expressadress;
+import com.omatcha.pojo.Users;
 import com.omatcha.service.ExpressadressService;
 import com.omatcha.service.impl.ExpressadressServiceImpl;
 
@@ -24,7 +25,7 @@ public class InsertExpressadress extends HttpServlet{
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
 		HttpSession session = req.getSession(true);
-		
+		Users user = (Users) session.getAttribute("wuser");
 		String consignee = req.getParameter("Consignee");
 		String ephone = req.getParameter("ephone");
 		String eprovince = req.getParameter("cmbProvince");
@@ -40,7 +41,7 @@ public class InsertExpressadress extends HttpServlet{
 		expressadress.setEcountry(earea);
 		expressadress.setEadress(eadress);
 		
-		if (ea.insertExpressadress(expressadress)) {
+		if (ea.insertExpressadress(expressadress,user)) {
 			session.setAttribute("crconsignee", consignee);
 			session.setAttribute("crephone", ephone);
 			session.setAttribute("creprovince", eprovince);

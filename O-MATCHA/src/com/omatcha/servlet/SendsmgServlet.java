@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omatcha.pojo.Users;
@@ -34,8 +35,11 @@ public class SendsmgServlet extends HttpServlet{
 		  SendMessage sdm = new SendMessage();
 		  
 		  String phonenum=req.getParameter("modiphone");
+		  HttpSession session = req.getSession(true);
+		  session.setAttribute("sendmscode", send);
+		  System.out.println(send);
 		 
-		  sdm.getRequest2(phonenum, send);
+		  //sdm.getRequest2(phonenum, send);
 		  
 		  
 		  

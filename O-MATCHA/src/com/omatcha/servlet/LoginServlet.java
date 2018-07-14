@@ -56,8 +56,9 @@ public class LoginServlet extends HttpServlet{
 				
 				}
 			//跳转判断
-			String jump = (String) session.getAttribute("jump");
-			if (jump.length()>0) {
+			
+			String jump = String.valueOf(session.getAttribute("jump")) ;
+			if (!jump.equals("null")) {
 				AddShoppingCart.addshoppingcart(req, resp);
 				req.getRequestDispatcher("/page/shopping.jsp").forward(req, resp);
 			}else{

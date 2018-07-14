@@ -13,8 +13,8 @@ import com.omatcha.service.ExpressadressService;
 public class ExpressadressServiceImpl implements ExpressadressService{
 	ExpressadressDao expressadressdao = new ExpressadressImpl();
 	@Override
-	public boolean insertExpressadress(Expressadress expressadress) {
-		int i=expressadressdao.insertExprssadress(expressadress);
+	public boolean insertExpressadress(Expressadress expressadress,Users user) {
+		int i=expressadressdao.insertExprssadress(expressadress, user);
 		if (i>0) {
 			return true;
 		}

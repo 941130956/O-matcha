@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public int InsertUserList(Users user) {
-		String sql = "insert into user(Nickname,usex,birthday,uprovince,ucity,ucountry,uadress) values(?,?,?,?,?,?,?) where uid= ?";
+		String sql = "update  user set Nickname=?,usex=?,birthday=?,uprovince=?,ucity=?,ucountry=?,uadress=? where uid =?";
 		String str [] ={user.getNickname(),user.getUsex(),user.getBirthday(),user.getUprovince(),user.getUcity(),user.getUcountry(),user.getUadress(),""+user.getUid()};
 		return DButil.update(sql, str);
 	}
@@ -48,7 +48,7 @@ public class UserDaoImpl implements UserDao{
 	}
 	public int forgetpwd(Users user){
 		String sql = "update user set passwords = ? where uname =? and uphone=?";
-		String str [] ={MD5.getMDCode(user.getPasswords()),""+user.getUname(),""+user.getUphone()};
+		String str [] ={MD5.getMDCode(user.getPasswords()),user.getUname(),user.getUphone()};
 		return DButil.update(sql, str);
 	}
 
